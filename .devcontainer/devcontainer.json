@@ -8,7 +8,7 @@
       "installZsh": true
     }
   },
-  "postCreateCommand": "mix deps.get && mix compile && mix ecto.migrate",
+  "postCreateCommand": "mkdir -p /app/_build /app/deps && chown -R vscode:vscode /app/_build /app/deps && mix deps.get && mix deps.compile file_system --force && mix compile && mix ecto.migrate",
   "postStartCommand": "mix run priv/scripts/seed.exs",
   "forwardPorts": [4000, 7700],
   "remoteUser": "vscode"
