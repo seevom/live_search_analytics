@@ -9,6 +9,9 @@ defmodule LiveSearchAnalytics.Application do
       LiveSearchAnalyticsWeb.Endpoint
     ]
 
+    # Initialize search analytics
+    LiveSearchAnalytics.Search.init()
+
     opts = [strategy: :one_for_one, name: LiveSearchAnalytics.Supervisor]
     Supervisor.start_link(children, opts)
   end

@@ -1,8 +1,14 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - "4000:4000"
+    volumes:
+      - .:/app
+      - /app/deps
+      - /app/_build
     environment:
       - PHX_HOST=localhost
       - PORT=4000
@@ -23,14 +29,6 @@ services:
       - MEILI_ENV=development
     volumes:
       - meili_data:/meili_data
-    restart: unless-stopped
-
-  livebook:
-    image: livebook/livebook:latest
-    ports:
-      - "8080:8080"
-    environment:
-      - LIVEBOOK_PASSWORD=livebook
     restart: unless-stopped
 
 volumes:
