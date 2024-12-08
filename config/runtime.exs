@@ -5,6 +5,8 @@ import Config
 # system starts, so it is typically used to load production configuration
 # and secrets from environment variables or elsewhere. Do not define
 # any compile-time configuration in here, as it won't be applied.
+# The block below contains prod specific runtime configuration.
+
 if config_env() == :prod do
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -29,5 +31,11 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    secret_key_base: secret_key_base
+    secret_key_base: secret_key_base,
+    server: true
+
+  # Configure Meilisearch
+  config :live_search_analytics, :meilisearch,
+    url: System.get_env("MEILI_URL") || "http://meilisearch:7700",
+    api_key: System.get_env("MEILI_MASTER_KEY")
 end

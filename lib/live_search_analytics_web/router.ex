@@ -24,6 +24,7 @@ defmodule LiveSearchAnalyticsWeb.Router do
   scope "/api", LiveSearchAnalyticsWeb do
     pipe_through :api
     
+    post "/seed", SeedController, :create
     # Add API routes here
   end
 end
