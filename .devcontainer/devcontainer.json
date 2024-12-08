@@ -1,0 +1,60 @@
+{
+  "name": "LiveSearch Analytics Development",
+  "dockerComposeFile": ["../docker-compose.dev.yml"],
+  "service": "app",
+  "workspaceFolder": "/app",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "jakebecker.elixir-ls",
+        "phoenixframework.phoenix",
+        "bradlc.vscode-tailwindcss",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "elixir.enableTestLenses": true,
+        "elixir.suggestSpecs": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "jakebecker.elixir-ls",
+        "[elixir]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "jakebecker.elixir-ls"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "vscode.typescript-language-features"
+        },
+        "files.associations": {
+          "*.heex": "phoenix-heex"
+        }
+      }
+    }
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "forwardPorts": [4000, 7700],
+  
+  "postCreateCommand": "mix deps.get && mix compile",
+  
+  "remoteUser": "vscode",
+
+  "postStartCommand": "mix run priv/scripts/seed.exs",
+
+  "waitFor": "postCreateCommand",
+
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "32gb"
+  }
+}

@@ -30,7 +30,7 @@ defmodule LiveSearchAnalyticsWeb do
         layouts: [html: LiveSearchAnalyticsWeb.Layouts]
 
       import Plug.Conn
-      import LiveSearchAnalyticsWeb.Gettext
+      use Gettext, backend: LiveSearchAnalyticsWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -71,8 +71,8 @@ defmodule LiveSearchAnalyticsWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
+      use Gettext, backend: LiveSearchAnalyticsWeb.Gettext
       import LiveSearchAnalyticsWeb.CoreComponents
-      import LiveSearchAnalyticsWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
