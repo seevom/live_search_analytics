@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    depends_on:
+      - meilisearch
+    environment:
+      - MEILISEARCH_HOST=http://meilisearch:7700
+      - SECRET_KEY_BASE=your_secret_key_base
+
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili_data:/meili_data
+    environment:
+      - MEILI_MASTER_KEY=your_master_key
+
+  livebook:
+    image: livebook/livebook:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - LIVEBOOK_PASSWORD=your_password
+    volumes:
+      - ./notebooks:/data/notebooks
+
+volumes:
+  meili_data:

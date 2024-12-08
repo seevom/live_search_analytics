@@ -1,0 +1,68 @@
+# Search Analytics Dashboard
+
+## Setup
+
+```elixir
+Mix.install([
+  {:meilisearch, "~> 0.8"},
+  {:vega_lite, "~> 0.1.6"},
+  {:kino, "~> 0.8.0"}
+])
+
+alias VegaLite, as: Vl
+```
+
+## Connect to Meilisearch
+
+```elixir
+meilisearch_host = System.get_env("MEILISEARCH_HOST", "http://localhost:7700")
+meilisearch_key = System.get_env("MEILISEARCH_KEY", "")
+
+{:ok, client} = Meilisearch.Client.new(meilisearch_host, meilisearch_key)
+```
+
+## Search Analytics Visualization
+
+```elixir
+# Sample data - in a real app, this would come from your analytics storage
+search_data = [
+  %{term: "example", count: 45},
+  %{term: "search", count: 30},
+  %{term: "analytics", count: 25},
+  %{term: "elixir", count: 20}
+]
+
+Vl.new(width: 600, height: 400)
+|> Vl.data_from_values(search_data)
+|> Vl.mark(:bar)
+|> Vl.encode_field(:x, "term", type: :nominal, title: "Search Term")
+|> Vl.encode_field(:y, "count", type: :quantitative, title: "Number of Searches")
+|> Vl.config(view: [stroke: nil])
+|> Vl.config(axis: [grid: false])
+```
+
+## Real-time Search Monitor
+
+```elixir
+Kino.VegaLite.periodically(
+  %{data: [], timestamp: nil},
+  100,
+  fn state ->
+    # Simulate real-time data - replace with actual metrics in production
+    new_count = :rand.uniform(100)
+    timestamp = DateTime.utc_now()
+    
+    new_data =
+      [%{time: timestamp, searches: new_count} | state.data]
+      |> Enum.take(50)
+
+    spec =
+      Vl.new(width: 600, height: 300)
+      |> Vl.data_from_values(new_data)
+      |> Vl.mark(:line)
+      |> Vl.encode_field(:x, "time", type: :temporal, title: "Time")
+      |> Vl.encode_field(:y, "searches", type: :quantitative, title: "Searches/Second")
+
+    {spec, %{state | data: new_data, timestamp: timestamp}}
+  end
+)
