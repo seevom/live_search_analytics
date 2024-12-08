@@ -3,7 +3,7 @@
   "dockerComposeFile": ["../docker-compose.dev.yml"],
   "service": "app",
   "workspaceFolder": "/app",
-  
+
   "customizations": {
     "vscode": {
       "extensions": [
@@ -20,9 +20,6 @@
         "[elixir]": {
           "editor.formatOnSave": true,
           "editor.defaultFormatter": "jakebecker.elixir-ls"
-        },
-        "[javascript]": {
-          "editor.defaultFormatter": "vscode.typescript-language-features"
         },
         "files.associations": {
           "*.heex": "phoenix-heex"
@@ -42,15 +39,12 @@
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
 
-  "forwardPorts": [4000, 7700],
-  
-  "postCreateCommand": "mix deps.get && mix compile",
-  
-  "remoteUser": "vscode",
-
+  "postCreateCommand": "mix deps.get && mix compile && mix ecto.migrate",
   "postStartCommand": "mix run priv/scripts/seed.exs",
 
-  "waitFor": "postCreateCommand",
+  "forwardPorts": [4000, 7700],
+
+  "remoteUser": "vscode",
 
   "hostRequirements": {
     "cpus": 2,
