@@ -8,7 +8,8 @@
       "installZsh": true
     }
   },
-  "postCreateCommand": "mix deps.get && mix compile",
+  "postCreateCommand": "mix deps.get && mix compile && mix ecto.migrate",
+  "postStartCommand": "mix run priv/scripts/seed.exs",
   "forwardPorts": [4000, 7700],
   "remoteUser": "vscode"
 }
