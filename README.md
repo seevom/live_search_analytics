@@ -1,7 +1,3 @@
-Here’s an updated version of your README with a more detailed section on using Daytona to enhance the development process:
-
----
-
 # Sample Elixir/Phoenix Application
 
 A real-time search analytics platform that provides instant search results and comprehensive search analytics.
