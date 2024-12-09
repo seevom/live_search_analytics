@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+      args:
+        BASE_IMAGE: elixir:1.15-slim
     ports:
       - "4000:4000"
     volumes:

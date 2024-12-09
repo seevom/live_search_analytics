@@ -1,6 +1,8 @@
 services:
   app:
-    build: .
+    build:
+      args:
+          - BASE_IMAGE=elixir:1.15-slim
     ports:
       - "4000:4000"
     environment:
@@ -26,11 +28,11 @@ services:
     restart: unless-stopped
 
   livebook:
-    image: livebook/livebook:latest
+    image: ghcr.io/livebook-dev/livebook
     ports:
       - "8080:8080"
     environment:
-      - LIVEBOOK_PASSWORD=livebook
+      - LIVEBOOK_PASSWORD=gF8r@3Kp9Zq1
     restart: unless-stopped
 
 volumes:
