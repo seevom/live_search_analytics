@@ -1,1 +1,21 @@
 
+{
+  "name": "Elixir/Phoenix Development",
+  "image": "mcr.microsoft.com/devcontainers/elixir:1.15-alpine",
+  "forwardPorts": [
+    4000
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "elixirLS.dialyzerEnabled": true,
+        "elixirLS.fetchDeps": true
+      },
+      "extensions": [
+        "michalbrzuchalski.elixir-ls",
+        "dash.haskell"
+      ]
+    }
+  },
+  "postCreateCommand": "mix setup"
+}
