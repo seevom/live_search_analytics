@@ -16,6 +16,5 @@
         "dash.haskell"
       ]
     }
-  },
-  "postCreateCommand": "mix setup"
+  }
 }
